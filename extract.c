@@ -75,12 +75,10 @@ int main(void)
     }
 
     puts("extracting");
-    File *tmp = head;
-    do
+    for (File *file = head; file; file = file->nxt)
     {
-        structwrite(tmp, f);
-        tmp = tmp->nxt;
-    } while (tmp != tail);
+        structwrite(file, f);
+    }
 
     puts("cleaning up");
     while (head)
