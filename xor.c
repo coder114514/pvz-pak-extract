@@ -3,12 +3,15 @@
 
 typedef unsigned char byte;
 
-#define BASE_DIR ""
+#define XOR_MASK 0xF7
+
+#define PAK_PATH "main.pak"
+#define OUTPUT_PATH "decoded_main.pak"
 
 int main(void)
 {
-    FILE *r = fopen(BASE_DIR"main.pak", "rb");
-    FILE *w = fopen("decoded_main.pak", "wb");
+    FILE *r = fopen(PAK_PATH, "rb");
+    FILE *w = fopen(OUTPUT_PATH, "wb");
 
     if (!r || !w)
     {
@@ -20,7 +23,7 @@ int main(void)
     while (feof(r) == 0)
     {
         fread(&tmp, 1, 1, r);
-        tmp ^= 0xF7;
+        tmp ^= XOR_MASK;
         fwrite(&tmp, 1, 1, w);
     }
     fclose(r), fclose(w);
